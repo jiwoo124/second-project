@@ -175,11 +175,20 @@ selected_muscle = st.selectbox("💥 키우고 싶은 근육 부위를 선택하
 
 # 운동 추천 & 설명
 if selected_muscle:
-    workout = random.choice(muscle_workouts[selected_muscle])
-    st.markdown('<div class="recommendation-box">', unsafe_allow_html=True)
-    st.markdown(f"<h2>🔥 {workout['name']} 🔥</h2>", unsafe_allow_html=True)
-    st.markdown(f"<p>{workout['description'].replace('\n','<br>')}</p>", unsafe_allow_html=True)
-    st.markdown('</div>', unsafe_allow_html=True)
+    # 1. selected_muscle 키가 딕셔너리에 있는지 확인
+    if selected_muscle not in muscle_workouts:
+        st.error("❌ 선택한 근육 부위에 해당하는 운동이 없습니다!")
+    else:
+        workouts_list = muscle_workouts[selected_muscle]
+        # 2. 운동 리스트가 비어있는지 확인
+        if not workouts_list:
+            st.error("⚠️ 해당 근육 부위에 등록된 운동이 없습니다.")
+        else:
+            workout = random.choice(workouts_list)
+            st.markdown('<div class="recommendation-box">', unsafe_allow_html=True)
+            st.markdown(f"<h2>🔥 {workout['name']} 🔥</h2>", unsafe_allow_html=True)
+            st.markdown(f"<p>{workout['description'].replace(chr(10),'<br>')}</p>", unsafe_allow_html=True)
+            st.markdown('</div>', unsafe_allow_html=True)
 
 # 푸터
 st.markdown("""
