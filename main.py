@@ -178,7 +178,7 @@ if selected_muscle:
     workout = random.choice(muscle_workouts[selected_muscle])
     st.markdown('<div class="recommendation-box">', unsafe_allow_html=True)
     st.markdown(f"<h2>🔥 {workout['name']} 🔥</h2>", unsafe_allow_html=True)
-    st.markdown(f"<p>{workout['description'].replace(chr(10),'<br>')}</p>", unsafe_allow_html=True)
+    st.markdown(f"<p>{workout['description'].replace('\n','<br>')}</p>", unsafe_allow_html=True)
     st.markdown('</div>', unsafe_allow_html=True)
 
 # 푸터
