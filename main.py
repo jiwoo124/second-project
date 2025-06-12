@@ -1,71 +1,114 @@
 import streamlit as st
 import random
 
-# 🎨 스타일 커스터마이징
+# 페이지 설정
 st.set_page_config(
-    page_title="드라마 추천기 🎭📺",
-    page_icon="🎬",
+    page_title="💪 근육 성장 운동 추천 💥",
+    page_icon="🏋️‍♂️",
     layout="centered",
 )
 
-st.markdown(
-    """
-    <style>
-    .big-title {
-        font-size: 42px;
-        color: #f63366;
-        text-align: center;
-        font-weight: bold;
-        margin-bottom: 20px;
-    }
-    .emoji-title {
-        font-size: 28px;
-        text-align: center;
-    }
-    .recommend-box {
-        background-color: #fff5f8;
-        padding: 20px;
-        border-radius: 15px;
-        box-shadow: 2px 2px 10px rgba(246, 51, 102, 0.2);
-        margin-top: 30px;
-    }
-    </style>
-    """,
-    unsafe_allow_html=True
-)
+# CSS 스타일링 - 강렬하고 남자다운 느낌!
+st.markdown("""
+<style>
+body {
+    background: linear-gradient(135deg, #1f1c2c, #928dab);
+    color: #fff;
+    font-family: 'Arial Black', Arial, sans-serif;
+}
+h1 {
+    font-size: 48px;
+    text-align: center;
+    margin-top: 40px;
+    text-shadow: 3px 3px 8px #000000aa;
+}
+h3 {
+    text-align: center;
+    margin-top: 20px;
+    color: #f0a500;
+    text-shadow: 2px 2px 5px #000;
+}
+.selectbox-container {
+    max-width: 400px;
+    margin: 30px auto 0 auto;
+}
+.recommendation-box {
+    background: #ff3c00;
+    border-radius: 15px;
+    padding: 30px;
+    margin-top: 40px;
+    box-shadow: 0 0 20px #ff3c00aa;
+    text-align: center;
+}
+.recommendation-box h2 {
+    font-size: 38px;
+    margin-bottom: 10px;
+}
+.recommendation-box p {
+    font-size: 22px;
+    font-weight: bold;
+}
+.footer {
+    margin-top: 80px;
+    font-size: 14px;
+    text-align: center;
+    color: #ccc;
+}
+</style>
+""", unsafe_allow_html=True)
 
-# 🎬 타이틀
-st.markdown('<div class="big-title">🌟 드라마 추천기 🎭📺</div>', unsafe_allow_html=True)
-st.markdown('<div class="emoji-title">장르를 골라주세요! 🎨</div>', unsafe_allow_html=True)
+# 타이틀
+st.markdown("<h1>🔥 근육 성장 운동 추천기 💪</h1>", unsafe_allow_html=True)
+st.markdown("<h3>키우고 싶은 근육을 선택하세요! 🏋️‍♂️</h3>", unsafe_allow_html=True)
 
-# 🎭 장르 선택
-genres = {
-    "로맨스 💕": ["사랑의 불시착", "그 해 우리는", "도깨비", "너의 시간 속으로"],
-    "스릴러 🔪": ["시그널", "보이스", "악의 꽃", "마우스"],
-    "코미디 😂": ["김비서가 왜 그럴까", "역도요정 김복주", "쌈 마이웨이", "하이바이, 마마!"],
-    "판타지 🐉": ["호텔 델루나", "알함브라 궁전의 추억", "구미호뎐", "무빙"],
-    "범죄/미스터리 🕵️‍♂️": ["비밀의 숲", "괴물", "모범형사", "라이프 온 마스"],
-    "청춘 🎓": ["이태원 클라쓰", "치즈인더트랩", "우리들의 블루스", "스물다섯 스물하나"],
-    "사극 👘": ["미스터 션샤인", "해를 품은 달", "옷소매 붉은 끝동", "철인왕후"],
+# 근육별 운동 리스트
+muscle_workouts = {
+    "가슴 (Chest) 🏋️": [
+        "벤치프레스 - 무게감 있게! 🏋️‍♂️",
+        "푸쉬업 - 가슴 불태워! 🔥",
+        "딥스 - 깊게 내려가자! ⬇️"
+    ],
+    "등 (Back) 💪": [
+        "데드리프트 - 등 근육 완전 자극! ⚡️",
+        "풀업 - 철봉 위의 지배자! 🦾",
+        "바벨 로우 - 강한 등 만들기! 🏋️"
+    ],
+    "어깨 (Shoulders) 🔥": [
+        "밀리터리 프레스 - 어깨 정복! 💥",
+        "사이드 레터럴 레이즈 - 광배근 발달! ✨",
+        "업라이트 로우 - 어깨 깡패 되자! 💪"
+    ],
+    "팔 (Arms) 💥": [
+        "바벨 컬 - 이두 불태워! 🔥",
+        "트라이셉스 익스텐션 - 팔 근육 빵빵! 💣",
+        "해머 컬 - 팔뚝 근육 장전! 🛠️"
+    ],
+    "하체 (Legs) 🦵": [
+        "스쿼트 - 힘의 근원! 🏋️‍♂️",
+        "레그 프레스 - 다리 폭발시키기! 💥",
+        "런지 - 강철 다리 만들기! ⚔️"
+    ],
+    "복근 (Abs) ⚡️": [
+        "크런치 - 복부 집중 공격! 🔥",
+        "플랭크 - 코어 완전 강화! 🛡️",
+        "레그 레이즈 - 복근 깊게 다지기! 💪"
+    ],
 }
 
-selected_genre = st.selectbox("장르 선택 🎬", list(genres.keys()))
+# 선택 박스
+selected_muscle = st.selectbox("근육 부위 선택", list(muscle_workouts.keys()))
 
-if selected_genre:
-    st.markdown('<div class="recommend-box">', unsafe_allow_html=True)
-    st.subheader(f"{selected_genre} 추천 드라마는... 🎁")
-    recommendation = random.choice(genres[selected_genre])
-    st.markdown(f"<h2 style='text-align: center;'>🌈 <strong>{recommendation}</strong> 🌈</h2>", unsafe_allow_html=True)
+# 추천 출력
+if selected_muscle:
+    st.markdown('<div class="recommendation-box">', unsafe_allow_html=True)
+    st.markdown(f"<h2>{selected_muscle} 운동 추천</h2>", unsafe_allow_html=True)
+    workout = random.choice(muscle_workouts[selected_muscle])
+    st.markdown(f"<p>👉 {workout}</p>", unsafe_allow_html=True)
     st.markdown('</div>', unsafe_allow_html=True)
 
-# 🎉 푸터
-st.markdown(
-    """
-    <br><hr>
-    <div style='text-align: center; font-size: 16px;'>
-    Made with ❤️ by DramaLover 🎬<br>
-    즐거운 감상 되세요! 📺🍿
-    </div>
-    """,
-    unsafe_allow_html=True
-)
+# 푸터
+st.markdown("""
+<div class="footer">
+    Made with 💪 by FitnessKing | Keep pushing your limits! 🔥🔥🔥
+</div>
+""", unsafe_allow_html=True)
